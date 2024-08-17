@@ -1,20 +1,9 @@
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import TodoList from './components/TodoList';
-import { StyleSheet } from 'react-native';
+import Home from "./screens/Home";
+
 
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <TodoList />
-      </SafeAreaView>
-    </SafeAreaProvider>
+<Home/>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F7F8FA',
-  },
-});

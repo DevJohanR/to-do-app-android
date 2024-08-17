@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { todosData } from '../data/todos';
+
 import { FlatList } from 'react-native';
 import Todo from './Todo';
 
-export default function TodoList() {
+export default function TodoList({todosData}) {
   return (
     <FlatList
       data={todosData}  // Asegúrate de que esta referencia es correcta
@@ -17,7 +17,7 @@ export default function TodoList() {
         );
       }}
     />
-  );
+  ); 
 }
 
 /*

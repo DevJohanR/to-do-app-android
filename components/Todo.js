@@ -19,8 +19,8 @@ export default function Todo({
                 hour={hour}
             />
             <View>
-                <Text style={styles.text}>{text}</Text>
-                <Text style={styles.time}>{hour}</Text>
+                <Text style={ isCompleted ? [styles.text, {textDecorationLine: 'line-through', color: '#73737330'}] : styles.text}>{text}</Text>
+                <Text style={ isCompleted ? [styles.time, {textDecorationLine: 'line-through', color: '#73737330'}] : styles.time}>{hour}</Text>
             </View>
         </View>
     )
