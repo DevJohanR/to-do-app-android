@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Checkbox from './Checkbox';
 
 export default function Todo({
     id,
@@ -10,8 +11,17 @@ export default function Todo({
 }){
     return(
         <View style={styles.container}>
-            <Text style={styles.text}>{text}</Text>
-            <Text style={styles.time}>{hour}</Text>
+            <Checkbox
+                id={id}
+                text={text}
+                isCompleted={isCompleted}
+                isToday={isToday}
+                hour={hour}
+            />
+            <View>
+                <Text style={styles.text}>{text}</Text>
+                <Text style={styles.time}>{hour}</Text>
+            </View>
         </View>
     )
 }
@@ -20,6 +30,8 @@ export default function Todo({
 const styles =  StyleSheet.create({
     container:{
         marginBottom: 20,
+        flexDirection: 'row',
+        alignItems: 'center'
     },
 
     text:{
