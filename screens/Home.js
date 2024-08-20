@@ -3,7 +3,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet, Text, Image, TouchableOpacity, View } from 'react-native';
 import TodoList from '../components/TodoList';
 import { todosData } from '../data/todos';
-import { useState } from 'react';
+import {useNavigation} from '@react-navigation/native'
 
 
 export default function Home() {
@@ -12,6 +12,7 @@ const [localData, setLocalData] = React.useState(
 )
 
 const [isHidden, setIsHidden] = React.useState(false);
+const navigation = useNavigation();
 
 const handleHidePress = () =>{
   if(isHidden){
@@ -36,8 +37,10 @@ const handleHidePress = () =>{
         <TodoList todosData={localData.filter(todo => todo.isToday === true)} />
         <Text style={styles.title}>Tomorrow</Text>
         <TodoList todosData={localData.filter(todo => !todo.isToday === true)} />
-        <TouchableOpacity style={styles.button}>
+
+        <TouchableOpacity onPress={()=> navigation.navigate('Add')} style={styles.button}>
         <Text style={styles.plus}>+</Text>
+        
         </TouchableOpacity>
       </SafeAreaView>
     </SafeAreaProvider>
