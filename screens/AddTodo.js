@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, TextInput, Button, TouchableOpacity, Switch } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTodoReducer } from '../redux/todosSlice'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 export default function AddTodo() {
     const [name, setName] = React.useState('');
@@ -8,6 +12,29 @@ export default function AddTodo() {
     const [showPicker, setShowPicker] = React.useState(false);
 /* Estado showPicker: Este estado controla si el DateTimePicker está visible o no. Comienza como false para que no se muestre automáticamente. */
 const [isToday, setIsToday] = React.useState(false);  // Definir el estado isToday aquí
+const listTodos = useSelector(state => state.todos.todos)
+const dispatch = useDispatch();
+const navigation = useNavigation();
+
+
+const addTodo = async () =>{
+    const newTodo={
+        id: Math.floor( Math.random() * 1000000),
+        text: name,
+        hour: date.toString(),
+        isToday: isToday,
+        isComplited: false,
+    }
+
+    try{
+        await AsyncStorage.setItem("@Todos",JSON.stringify( [...listTodos, newTodo]));
+        dispatch(addTodoReducer(newTodo));
+        console.log('Todo saved correctly');
+        navigation.goBack();
+    }catch(e){
+        console.log(e);
+    }
+}
 
 
     const onChange = (event, selectedDate) => {
@@ -63,7 +90,7 @@ const [isToday, setIsToday] = React.useState(false);  // Definir el estado isTod
          
              
             </View>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={addTodo} >
                 <Text style={{color: 'white'}}>Done</Text>
             </TouchableOpacity>
             <Text style={{color: '#00000040', fontSize: 12, maxWidth: '84%', paddingBottom: 10}}>If you disable today, the task will be considered as tomorrow</Text>

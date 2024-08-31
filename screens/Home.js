@@ -4,17 +4,27 @@ import { StyleSheet, Text, Image, TouchableOpacity, View } from 'react-native';
 import TodoList from '../components/TodoList';
 import { todosData } from '../data/todos';
 import {useNavigation} from '@react-navigation/native'
+import { useSelector, useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { hideComplitedReducer, setTodosReducer } from '../redux/todosSlice';
+
 
 
 export default function Home() {
-const [localData, setLocalData] = React.useState(
-  todosData.sort((a,b)=>{return a.isCompleted - b.isCompleted})
-)
+
+  const todos = useSelector(state => state.todos.todos)
+
+
+
+//const [localData, setLocalData] = React.useState(
+  //todosData.sort((a,b)=>{return a.isCompleted - b.isCompleted})
+//)
 
 const [isHidden, setIsHidden] = React.useState(false);
 const navigation = useNavigation();
 
 const handleHidePress = () =>{
+  /*
   if(isHidden){
     setIsHidden(false)
     setLocalData( todosData.sort((a,b)=>{return a.isCompleted - b.isCompleted}))
@@ -22,6 +32,7 @@ const handleHidePress = () =>{
   }
   setIsHidden(!isHidden)
   setLocalData(localData.filter(todo=> !todo.isCompleted))
+  */
 }
 
   return (
@@ -34,9 +45,9 @@ const handleHidePress = () =>{
         <Text onPress={handleHidePress} style={{color:'#3478f6'}}>{isHidden ? "Show Completed" : "Hide Completed"} </Text>
         </TouchableOpacity>
         </View>
-        <TodoList todosData={localData.filter(todo => todo.isToday === true)} />
+        <TodoList todosData={todos.filter(todo => todo.isToday === true)} />
         <Text style={styles.title}>Tomorrow</Text>
-        <TodoList todosData={localData.filter(todo => !todo.isToday === true)} />
+        <TodoList todosData={todos.filter(todo => !todo.isToday === true)} />
 
         <TouchableOpacity onPress={()=> navigation.navigate('Add')} style={styles.button}>
         <Text style={styles.plus}>+</Text>
