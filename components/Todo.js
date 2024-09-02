@@ -42,7 +42,7 @@ export default function Todo({
     const handleDeleteTodo = async () => {
         dispatch(deleteTodoReducer(id));
         try {
-            await AsyncStorage.setItem('Todos', JSON.stringify(
+            await AsyncStorage.setItem('@Todos', JSON.stringify(
                 todos.filter(todo => todo.id !== id)
             ));
             console.log('Todo deleted correctly');
@@ -53,7 +53,9 @@ export default function Todo({
 
     return (
         <View style={styles.container}>
-            <Checkbox
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+
+      <Checkbox
                 id={id}
                 text={text}
                 isCompleted={isCompleted}
@@ -68,6 +70,8 @@ export default function Todo({
                     {moment(localHour).format('LT')}
                 </Text>
             </View>
+
+      </View>
             <TouchableOpacity onPress={handleDeleteTodo} >
                 <MaterialIcons name="delete-outline" size={24} color="#73737340" style={styles.delete} />
             </TouchableOpacity>
@@ -79,7 +83,8 @@ const styles = StyleSheet.create({
     container: {
         marginBottom: 20,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'space-between'
     },
     text: {
         fontSize: 15,

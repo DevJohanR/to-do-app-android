@@ -43,7 +43,19 @@ getTodos();
 }, [])
 
 
-const handleHidePress = () =>{
+const handleHidePress = async () =>{
+
+if(isHidden){
+  setIsHidden(false)
+  const todos = await AsyncStorage.getItem("@Todos");
+  if(todos !==null){
+    dispatch(setTodosReducer(JSON.parse(todos)));
+  }
+  return;
+}
+setIsHidden(true);
+dispatch(hideComplitedReducer())
+
   /*
   if(isHidden){
     setIsHidden(false)
