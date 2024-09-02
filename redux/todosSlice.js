@@ -21,7 +21,7 @@ export const todosSlice = createSlice({
         updateTodoReducer: (state, action) => {
             state.todos = state.todos.map(todo => {
                 if (todo.id === action.payload.id) {
-                    todo.isComplited = !todo.isComplited;
+                    todo.isCompleted = !todo.isCompleted;
                 }
                 return todo;
             });

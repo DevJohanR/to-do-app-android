@@ -22,6 +22,26 @@ export default function Home() {
 
 const [isHidden, setIsHidden] = React.useState(false);
 const navigation = useNavigation();
+const dispatch = useDispatch();
+
+React.useEffect(()=>{
+
+const getTodos = async () => {
+
+try{
+  const todos = await AsyncStorage.getItem("@Todos");
+  if(todos !== null){
+    dispatch(setTodosReducer(JSON.parse(todos)))
+  }
+}catch(e){
+  console.log(e)
+}
+
+}
+getTodos();
+
+}, [])
+
 
 const handleHidePress = () =>{
   /*
